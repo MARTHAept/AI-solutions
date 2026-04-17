@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ИИ-решения — Каталог</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070b18;
+  --surface: rgba(17, 24, 39, 0.72);
+  --surface-strong: rgba(12, 18, 34, 0.92);
+  --border: rgba(148, 163, 184, 0.25);
+  --text: #e2e8f0;
+  --text2: #b6c3da;
+  --text3: #8b99b4;
+  --accent: #60a5fa;
+  --accent-strong: #3b82f6;
+  --accent-light: rgba(59, 130, 246, 0.18);
+  --trainer: #a78bfa;
+  --trainer-light: rgba(167, 139, 250, 0.18);
+  --assistant: #34d399;
+  --assistant-light: rgba(52, 211, 153, 0.16);
+  --agent: #f59e0b;
+  --agent-light: rgba(245, 158, 11, 0.16);
+  --shadow: 0 10px 28px rgba(2, 6, 23, 0.35);
+  --shadow-md: 0 24px 48px rgba(2, 6, 23, 0.45);
+  --radius: 16px;
+}
+
+/* Светлая тема */
+body.light {
+  --bg: #f0f4ff;
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-strong: rgba(255, 255, 255, 0.97);
+  --border: rgba(99, 102, 241, 0.15);
+  --text: #1e293b;
+  --text2: #475569;
+  --text3: #94a3b8;
+  --accent: #3b82f6;
+  --accent-strong: #2563eb;
+  --accent-light: rgba(59, 130, 246, 0.1);
+  --trainer: #7c3aed;
+  --trainer-light: rgba(124, 58, 237, 0.1);
+  --assistant: #059669;
+  --assistant-light: rgba(5, 150, 105, 0.1);
+  --agent: #d97706;
+  --agent-light: rgba(217, 119, 6, 0.1);
+  --shadow: 0 10px 28px rgba(99, 102, 241, 0.1);
+  --shadow-md: 0 24px 48px rgba(99, 102, 241, 0.15);
+}
+
+/* Переключатель темы */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+
+body.light {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.08), transparent 60%),
+    radial-gradient(1000px 540px at 95% 0%, rgba(167, 139, 250, 0.08), transparent 64%),
+    radial-gradient(900px 520px at 50% 120%, rgba(59, 130, 246, 0.06), transparent 70%),
+    var(--bg);
+}
+
+body.light::before { opacity: 0; }
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(56, 189, 248, 0.2), transparent 60%),
+    radial-gradient(1000px 540px at 95% 0%, rgba(167, 139, 250, 0.2), transparent 64%),
+    radial-gradient(900px 520px at 50% 120%, rgba(59, 130, 246, 0.22), transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 35%, rgba(255, 255, 255, 0.16) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 70%, rgba(255, 255, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px);
+  background-size: 380px 380px, 460px 460px, 320px 320px, 520px 520px;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(145deg, rgba(17, 24, 39, 0.85), rgba(15, 23, 42, 0.68));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+}
+
+body.light .header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+}
+
+body.light .chat-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+body.light .chat-input {
+  background: rgba(240, 244, 255, 0.8);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: var(--text);
+}
+
+body.light .chat-input:focus {
+  background: white;
+  border-color: var(--accent);
+}
+
+body.light .card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(99, 102, 241, 0.12);
+}
+
+body.light .modal {
+  background: white;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+body.light .modal-close {
+  background: #f1f5f9;
+}
+
+body.light .filters {
+  background: rgba(240, 244, 255, 0.7);
+}
+
+body.light .filter-btn {
+  background: white;
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+body.light .search-wrap input {
+  background: white;
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+body.light .chat-label { color: var(--accent); }
+body.light .chat-label::before { background: var(--accent); }
+
+body.light .chat-msg.ai .chat-avatar {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: var(--text2);
+}
+
+body.light .chat-msg.ai .chat-bubble {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: var(--text);
+}
+
+body.light .chat-meta .found-badge { background: var(--accent); }
+
+body.light .reset-btn {
+  border-color: #e2e8f0;
+  color: var(--text2);
+}
+
+body.light .filter-label { color: var(--text2); }
+
+body.light .filter-btn {
+  background: white;
+  border-color: #e2e8f0;
+  color: var(--text2);
+}
+
+body.light .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+body.light .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+body.light .filter-btn.cat-trainer.active { background: var(--trainer); border-color: var(--trainer); }
+body.light .filter-btn.cat-assistant.active { background: var(--assistant); border-color: var(--assistant); }
+body.light .filter-btn.cat-agent.active { background: var(--agent); border-color: var(--agent); }
+
+body.light .search-wrap input { background: white; border-color: #e2e8f0; color: var(--text); }
+body.light .search-icon { color: var(--text3); }
+
+body.light .grid-title { color: var(--text); }
+body.light .grid-count { color: var(--text2); }
+
+body.light .card { background: white; border-color: #e8ecf4; }
+body.light .card:hover { border-color: #c7d2fe; }
+body.light .card-name { color: var(--text); }
+body.light .card-desc { color: var(--text2); }
+body.light .card-effect { color: var(--text2); }
+body.light .card-provider { color: var(--text3); }
+
+body.light .card-ai-note {
+  background: rgba(59, 130, 246, 0.08);
+  color: #1e40af;
+  border-left-color: var(--accent);
+}
+
+body.light .modal { background: white; border-color: #e8ecf4; }
+body.light .modal-title { color: var(--text); }
+body.light .modal-key { color: var(--text3); }
+body.light .modal-val { color: var(--text); }
+body.light .modal-row { border-bottom-color: #f1f5f9; }
+body.light .modal-close { background: #f1f5f9; color: var(--text2); }
+body.light .modal-close:hover { background: #e2e8f0; }
+
+body.light .overlay { background: rgba(15, 23, 42, 0.3); }
+
+body.light .empty { color: var(--text2); }
+
+body.light .card.highlighted {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 55%, #a855f7 100%);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 16px;
+  box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.header-stat strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── AI Chat Panel ── */
+.chat-panel {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.68));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  padding: 20px 32px;
+  backdrop-filter: blur(14px);
+}
+
+.chat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #93c5fd;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: #93c5fd;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.chat-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.chat-input {
+  flex: 1;
+  border: 1.5px solid rgba(148, 163, 184, 0.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: rgba(15, 23, 42, 0.58);
+  outline: none;
+  resize: none;
+  height: 48px;
+  transition: border-color 0.2s, height 0.2s, box-shadow 0.2s, background 0.2s;
+  line-height: 1.5;
+}
+
+.chat-input:focus {
+  border-color: #93c5fd;
+  height: 80px;
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.16);
+}
+
+.chat-input::placeholder { color: var(--text3); }
+
+.chat-btn {
+  background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 45%, #6366f1 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  height: 48px;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+.chat-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(59, 130, 246, 0.45);
+  filter: brightness(1.06);
+}
+.chat-btn:active { transform: translateY(0); }
+.chat-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.chat-history {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-msg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.chat-msg.user { flex-direction: row-reverse; }
+
+.chat-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.chat-msg.user .chat-avatar { background: var(--accent); color: white; }
+.chat-msg.ai .chat-avatar { background: var(--bg); border: 1px solid var(--border); color: var(--text2); }
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.chat-msg.user .chat-bubble {
+  background: linear-gradient(140deg, #2563eb 0%, #4f46e5 100%);
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+.chat-msg.ai .chat-bubble {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-response {
+  display: none;
+}
+
+.chat-meta {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.chat-meta.visible { display: flex; }
+
+.found-badge {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: white;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.reset-btn {
+  background: none;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.reset-btn:hover { border-color: var(--text2); color: var(--text); }
+
+/* Loading dots */
+.loading { display: inline-flex; gap: 4px; align-items: center; }
+.dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: bounce 1.2s infinite; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%,80%,100%{transform:translateY(0);opacity:0.3} 40%{transform:translateY(-4px);opacity:1} }
+
+/* ── Filters ── */
+.filters {
+  padding: 16px 32px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.54));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.filter-label {
+  font-size: 12px;
+  color: var(--text2);
+  margin-right: 4px;
+}
+
+.filter-btn {
+  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.filter-btn:hover {
+  border-color: #93c5fd;
+  color: #bfdbfe;
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  border-color: transparent;
+  color: white;
+}
+.filter-btn.cat-trainer.active { background: var(--trainer); border-color: var(--trainer); }
+.filter-btn.cat-assistant.active { background: var(--assistant); border-color: var(--assistant); }
+.filter-btn.cat-agent.active { background: var(--agent); border-color: var(--agent); }
+
+.search-wrap {
+  margin-left: auto;
+  position: relative;
+}
+
+.search-wrap input {
+  background: rgba(15, 23, 42, 0.62);
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 20px;
+  padding: 6px 14px 6px 34px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  width: 220px;
+  transition: border-color 0.2s;
+}
+
+.search-wrap input:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+.search-wrap input::placeholder { color: var(--text3); }
+
+.search-icon {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 13px;
+}
+
+/* ── Grid ── */
+.main {
+  padding: 24px 32px;
+}
+
+.grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.grid-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.grid-count {
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card ── */
+.card {
+  background: linear-gradient(155deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: rgba(147, 197, 253, 0.55);
+}
+
+.card.highlighted {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18), var(--shadow-md);
+}
+
+.card.dimmed {
+  opacity: 0.35;
+  transform: none;
+}
+
+.card.highlighted::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.badge-trainer { background: var(--trainer-light); color: var(--trainer); }
+.badge-assistant { background: var(--assistant-light); color: var(--assistant); }
+.badge-agent { background: var(--agent-light); color: var(--agent); }
+
+.card-provider {
+  font-size: 11px;
+  color: var(--text3);
+  white-space: nowrap;
+}
+
+.card-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-effect {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  font-size: 12px;
+  color: var(--text2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-effect::before {
+  content: '→ ';
+  color: var(--assistant);
+  font-weight: 600;
+}
+
+/* AI explanation on card */
+.card-ai-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(59, 130, 246, 0.16);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #bfdbfe;
+  line-height: 1.5;
+  display: none;
+  border-left: 3px solid #60a5fa;
+}
+
+.card-ai-note.visible { display: block; }
+
+/* Empty state */
+.empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text2);
+}
+
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-text { font-size: 15px; }
+
+/* ── Detail modal ── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(2, 6, 23, 0.55);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(4px);
+}
+
+.overlay.visible { display: flex; }
+
+.modal {
+  background: linear-gradient(160deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.93));
+  border-radius: 16px;
+  width: min(560px, 100%);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.52);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.modal-close {
+  float: right;
+  background: rgba(30, 41, 59, 0.85);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-close:hover { background: var(--border); color: var(--text); }
+
+.modal-badge { margin-bottom: 12px; clear: both; display: inline-block; }
+
+.modal-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.modal-row {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.modal-row:last-child { border-bottom: none; margin-bottom: 0; }
+
+.modal-key {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.modal-val {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+@media (max-width: 860px) {
+  .header,
+  .chat-panel,
+  .filters,
+  .main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-stats {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .search-wrap {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .search-wrap input {
+    width: 100%;
+  }
+
+  .chat-row {
+    flex-direction: column;
+  }
+
+  .chat-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    ИИ-решения
+  </div>
+  <div class="header-stats">
+    <span><strong id="stat-total">50</strong> решений</span>
+    <span><strong id="stat-trainers">3</strong> тренажера</span>
+    <span><strong id="stat-assistants">15</strong> ассистентов</span>
+    <span><strong id="stat-agents">32</strong> агента</span>
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
+      <span id="theme-icon">☀️</span>
+      <span id="theme-label">Светлая</span>
+    </button>
+  </div>
+</header>
+
+<!-- AI Chat -->
+<div class="chat-panel">
+  <div class="chat-label">ИИ-консультант</div>
+  <div class="chat-history" id="chat-history"></div>
+  <div class="chat-row">
+    <textarea class="chat-input" id="chat-input"
+      placeholder="Опишите задачу или задайте уточняющий вопрос... (Ctrl+Enter)"></textarea>
+    <button class="chat-btn" id="chat-btn" onclick="askAI()">Отправить →</button>
+  </div>
+  <div class="chat-meta" id="chat-meta">
+    <span class="found-badge" id="found-badge"></span>
+    <button class="reset-btn" onclick="resetAI()">✕ Сбросить</button>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+  <span class="filter-label">Тип:</span>
+  <button class="filter-btn active" onclick="setFilter('all', this)">Все</button>
+  <button class="filter-btn cat-trainer" onclick="setFilter('trainer', this)">Тренажеры</button>
+  <button class="filter-btn cat-assistant" onclick="setFilter('assistant', this)">Ассистенты</button>
+  <button class="filter-btn cat-agent" onclick="setFilter('agent', this)">Агенты</button>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="search" placeholder="Поиск по названию..." oninput="render()">
+  </div>
+</div>
+
+<!-- Cards Grid -->
+<main class="main">
+  <div class="grid-header">
+    <span class="grid-title">Каталог решений</span>
+    <span class="grid-count" id="grid-count"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- Detail Modal -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕ закрыть</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ── Конфигурация Mistral API ─────────────────────────────────────
+const MISTRAL_API = 'https://api.mistral.ai/v1/chat/completions';
+const MISTRAL_KEY = '3RvBh8eSmNZCKu2LcJ1WfDeNzJJ3tUro';
+
+// ── Данные (берутся из data.json если есть, иначе встроены) ──────
+const SOLUTIONS = [{"id":"tr_1","category":"trainer","category_label":"Тренажер","name":"ИИ-ассистент по поиску провайдеров","description":"Ассистент для расширенного поиска провайдеров под любые задачи, настроен на софты и узкие специфичные запросы. Ищет во всех открытых источниках","provider":"SimpleAI","effect":"сокращение времени на поиск, отсмотр и запросы провайдеров, т.к. на выходе уже готовый мониторинг рынка с ценами","tags":["тренажер","внешний"]},{"id":"tr_2","category":"trainer","category_label":"Тренажер","name":"ИИ-кейс-тестирование  Кейси","description":"1. ИИ генерит кейсов по компетенциям\n2. ИИ оценивает ответы участника на соответствие компетенции и дает рекомендации","provider":"EmplyFlow","effect":"1. Экономия времени на разработку кейсов\n2. Возможность масштабно провести оценку компетенций и участнику получить персонализированные рекомендации","tags":["тренажер","внешний"]},{"id":"tr_3","category":"trainer","category_label":"Тренажер","name":"ИИ-тренажер по переговорам от компании SellWell","description":"ИИ проанализирует ваши переговоры и оценит каждую из 26 переговорных техник по шкале 1-4. Также ИИ выявит 5 ваших самых сильных переговорных навыка и 5 самых важных зон роста.","provider":"SellWell","effect":"Очень позитивная обратная связь участников и руководителей.","tags":["тренажер","внешний"]},{"id":"ns_1","category":"assistant","category_label":"Ассистент","name":"Останислав","description":"тренирует и дает рекомендации по stay интервью для hrbp","provider":"Нейрошлюз","effect":"улучшает навыки ведения stay интервью - что в перспективе должно повлиять на уменьшение процента увольнений","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_2","category":"assistant","category_label":"Ассистент","name":"Анатолий","description":"помогает проверять презентаций по аналитическим кейсам","provider":"Нейрошлюз","effect":"сокращение времени на проверку презентаций + улучшения качества задаваемых на защите вопросам","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_3","category":"assistant","category_label":"Ассистент","name":"Кейси","description":"помогает проверять кейсы модели компетенций, сокращает время на проверку","provider":"Нейрошлюз","effect":"сокращение времени на проверку, более объективная проверка","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_4","category":"assistant","category_label":"Ассистент","name":"Второй пилот тренера (методолог)","description":"пишет сценарий + полностью контентную часть с текстовками тренера","provider":"Нейрошлюз","effect":"сокращение времени на подготовку практикумов, большее разнообразие контентной части","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_5","category":"assistant","category_label":"Ассистент","name":"Аналитик обратной связи по образованию","description":"анализирует ОС + дает предложения по улучшению программ","provider":"Нейрошлюз","effect":"сокращение времени на анализ обратной связи + улучшение образовательных программ","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_6","category":"assistant","category_label":"Ассистент","name":"Рекомендатель курсов ОУ","description":"предлагает курсы из каталога ОУ по запросу пользователя","provider":"Нейрошлюз","effect":"сокращение времени на рекомендации + более персонализированные рекомендации с учетом карьерных путей","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_7","category":"assistant","category_label":"Ассистент","name":"Тренажер по продажам","description":"тренерует навыки продаж","provider":"Нейрошлюз","effect":"улучшение навыков продаж + более разнообразные инструменты тренировки","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_8","category":"assistant","category_label":"Ассистент","name":"Тренажер по переговорам","description":"тренерует навыки переговоров","provider":"Нейрошлюз","effect":"улучшение навыков переговоров + более разнообразные инструменты тренировки","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_9","category":"assistant","category_label":"Ассистент","name":"Секретарь кафедры Ростелекома","description":"помогает с ответами на частые вопросы по взаимодействию с вузами","provider":"Нейрошлюз","effect":"сокращение времени на ответы на частые вопросы","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_10","category":"assistant","category_label":"Ассистент","name":"Софт задачник","description":"придумывает задания для развития soft skills под программу","provider":"Нейрошлюз","effect":"сокращает время на разработку дз + более разнообразное и кастомизированное дз","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_11","category":"assistant","category_label":"Ассистент","name":"ИИ тьютор Школы программирования","description":"объясняет сложные темы, проверяет код, генерирует дополнительные задания","provider":"Нейрошлюз","effect":"повышает эффективность обучения","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_12","category":"assistant","category_label":"Ассистент","name":"Бот цифровая практика","description":"отвечает на частые вопросы о цифровой практике","provider":"Нейрошлюз","effect":"сокращает время на ответы на вопросы студентам","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_13","category":"assistant","category_label":"Ассистент","name":"Бот продукты b2c","description":"дает подсказки по продуктам b2c для ГАП","provider":"Нейрошлюз","effect":"улучшает знания продуктов b2c, более интерактивный формат общения с памятками","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_14","category":"assistant","category_label":"Ассистент","name":"Рекомендатель курсов ОУ (v2)","description":"Подбирает и предоставляет ссылки на курсы по запросу направления и развития","provider":"Нейрошлюз","effect":"Сокращает время на поиск подходящих курсов, индивидуализированный подход к обучению.","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ns_15","category":"assistant","category_label":"Ассистент","name":"Проверка кода и рекомендации","description":"Проверяет направленный код/задание. Дает проверяющие задания на отработку ошибок.","provider":"Нейрошлюз","effect":"Помогает тренироваться в изучении программирования","tags":["ассистент","нейрошлюз","внутренний"]},{"id":"ag_1","category":"agent","category_label":"Агент","name":"Агент по проверке заданий Школы тестировщика","description":"Проверяет выполнение домашних заданий, присылаемых участниками Школы тестировщика и дает рекомендации по исправлению","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_2","category":"agent","category_label":"Агент","name":"Помощник В2В","description":"Помогает тренеру В2В генерить варианты рабочих скриптов и самому новичку в режиме реального времени качественно отвечать клиенту","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_3","category":"agent","category_label":"Агент","name":"Помощник для тренера","description":"Помогает тренеру решить возникающие вопросы в процессе работы, дает ответы и рекомендации","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_4","category":"agent","category_label":"Агент","name":"Конвертер форматов обучения","description":"Помогает получить разные варианты обучающих форматов из одного материала: из теории — кейсы, из кейса — ролевую игру и др.","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_5","category":"agent","category_label":"Агент","name":"Копирайтер для тг-канала — Постуша","description":"Помогает написать пост с нуля или отредактировать имеющийся текст в стилистике канала","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_6","category":"agent","category_label":"Агент","name":"Аналитик процесса адаптации","description":"Анализирует отчет по обучению выездных сотрудников БТИ","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_7","category":"agent","category_label":"Агент","name":"Светозар — создатель тестов БТИ","description":"Предназначен для генерации тестовых вопросов и ответов на основе инструкций и теоретических материалов.","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_8","category":"agent","category_label":"Агент","name":"ЭлектроМихаил создает расписание","description":"Планирование графика обучений на месяц/квартал","provider":"Нейрошлюз","effect":"","date":"2025-09-12","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_9","category":"agent","category_label":"Агент","name":"Тесть B2B","description":"Создание продуктовых тестов для оценки знаний по итогам обучающих мероприятий","provider":"Нейрошлюз","effect":"","date":"2025-10-03","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_10","category":"agent","category_label":"Агент","name":"Аналитик касаний","description":"Анализирует касание тренера подопечным в чат-боте АдаптON","provider":"Нейрошлюз","effect":"","date":"2025-10-03","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_11","category":"agent","category_label":"Агент","name":"РевИИзоро","description":"Анализ качества телефонных разговоров","provider":"Нейрошлюз","effect":"","date":"2025-10-03","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_12","category":"agent","category_label":"Агент","name":"Агент Рассылкин","description":"Создание писем-приглашений на обучение","provider":"Нейрошлюз","effect":"","date":"2025-10-03","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_13","category":"agent","category_label":"Агент","name":"ИИ помощник бизнес-тренера","description":"Аналитика обратной связи, создание приглашений","provider":"Нейрошлюз","effect":"","date":"2025-10-03","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_14","category":"agent","category_label":"Агент","name":"Мастер сети","description":"Тренажёр для новых сотрудников 2ой линии технической поддержки по типовым кейсам — помогает развивать навыки диагностики и решения проблем клиентов.","provider":"Нейрошлюз","effect":"","date":"2025-10-24","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_15","category":"agent","category_label":"Агент","name":"Траектория лидера 3.0","description":"Мэтч ОУ и базы знаний для выстраивания динамического трека развития для директоров","provider":"Нейрошлюз","effect":"","date":"2025-10-24","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_16","category":"agent","category_label":"Агент","name":"Помощник монтера","description":"Помогает выездному специалисту БТИ в сложных ситуациях на основе ВНД, кейсов и инструкций","provider":"Нейрошлюз","effect":"","date":"2025-10-24","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_17","category":"agent","category_label":"Агент","name":"Стресс-менеджер","description":"Проводит диагностику и даёт рекомендации по работе со стрессом","provider":"Нейрошлюз","effect":"","date":"2025-10-24","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_18","category":"agent","category_label":"Агент","name":"УОБТИ Helper","description":"Помощник для сотрудников УОБТИ","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_19","category":"agent","category_label":"Агент","name":"Мурзилка","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_20","category":"agent","category_label":"Агент","name":"ИнфоМозг","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_21","category":"agent","category_label":"Агент","name":"Куратор по прохождению обучения","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_22","category":"agent","category_label":"Агент","name":"Советник","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_23","category":"agent","category_label":"Агент","name":"Тренер по навыкам общения","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_24","category":"agent","category_label":"Агент","name":"Разработчик кейсов","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-01","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_25","category":"agent","category_label":"Агент","name":"Наставник будущего","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_26","category":"agent","category_label":"Агент","name":"Скриптмэйкер","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_27","category":"agent","category_label":"Агент","name":"Обучалкин","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_28","category":"agent","category_label":"Агент","name":"GPONchik","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_29","category":"agent","category_label":"Агент","name":"МастерКлассОв","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_30","category":"agent","category_label":"Агент","name":"FLUKE MC2-100","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_31","category":"agent","category_label":"Агент","name":"Gloss_barbos","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]},{"id":"ag_32","category":"agent","category_label":"Агент","name":"ГородОК","description":"","provider":"Нейрошлюз","effect":"","date":"2026-12-17","tags":["агент","нейрошлюз","выпускники"]}];
+
+// ── Состояние ────────────────────────────────────────────────────
+let activeFilter = 'all';
+let highlightedIds = [];
+let aiNotes = {};
+let chatHistory = []; // История сообщений для контекста
+
+// ── Вспомогательные функции чата ────────────────────────────────
+function addMessage(role, text) {
+  chatHistory.push({ role, content: text });
+  const history = document.getElementById('chat-history');
+  const isUser = role === 'user';
+  const msg = document.createElement('div');
+  msg.className = `chat-msg ${isUser ? 'user' : 'ai'}`;
+  msg.innerHTML = `
+    <div class="chat-avatar">${isUser ? 'Вы' : 'ИИ'}</div>
+    <div class="chat-bubble">${text.replace(/\n/g, '<br>')}</div>
+  `;
+  history.appendChild(msg);
+  history.scrollTop = history.scrollHeight;
+}
+
+function addLoadingMessage() {
+  const history = document.getElementById('chat-history');
+  const msg = document.createElement('div');
+  msg.className = 'chat-msg ai';
+  msg.id = 'loading-msg';
+  msg.innerHTML = `
+    <div class="chat-avatar">ИИ</div>
+    <div class="chat-bubble"><span class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+  `;
+  history.appendChild(msg);
+  history.scrollTop = history.scrollHeight;
+}
+
+function removeLoadingMessage() {
+  const el = document.getElementById('loading-msg');
+  if (el) el.remove();
+}
+
+// ── Инициализация ────────────────────────────────────────────────
+document.getElementById('stat-total').textContent = SOLUTIONS.length;
+document.getElementById('stat-trainers').textContent = SOLUTIONS.filter(s => s.category === 'trainer').length;
+document.getElementById('stat-assistants').textContent = SOLUTIONS.filter(s => s.category === 'assistant').length;
+document.getElementById('stat-agents').textContent = SOLUTIONS.filter(s => s.category === 'agent').length;
+
+render();
+
+// ── Фильтрация ───────────────────────────────────────────────────
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = SOLUTIONS.filter(s => {
+    const matchCat = activeFilter === 'all' || s.category === activeFilter;
+    const matchSearch = !q || s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q);
+    return matchCat && matchSearch;
+  });
+
+  const visibleCount = highlightedIds.length > 0 ? highlightedIds.length : filtered.length;
+  document.getElementById('grid-count').textContent = highlightedIds.length > 0
+    ? `${visibleCount} подобрано ИИ из ${SOLUTIONS.length}`
+    : `${filtered.length} из ${SOLUTIONS.length}`;
+
+  const grid = document.getElementById('grid');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Ничего не найдено</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(s => {
+    const isFound = highlightedIds.length > 0 && highlightedIds.includes(s.id);
+    const isHidden = highlightedIds.length > 0 && !isFound;
+    const note = aiNotes[s.id] || '';
+
+    return `<div class="card ${isFound ? 'highlighted' : ''}"
+      style="${isHidden ? 'display:none' : ''}"
+      onclick="showDetail('${s.id}')">
+      <div class="card-top">
+        <span class="card-badge badge-${s.category}">${s.category_label}</span>
+        <span class="card-provider">${s.provider}</span>
+      </div>
+      <div class="card-name">${s.name}</div>
+      ${s.description ? `<div class="card-desc">${s.description}</div>` : ''}
+      ${s.effect ? `<div class="card-effect">${s.effect}</div>` : ''}
+      ${note ? `<div class="card-ai-note visible">💡 ${note}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ── AI ───────────────────────────────────────────────────────────
+async function askAI() {
+  const input = document.getElementById('chat-input').value.trim();
+  if (!input) return;
+
+  const btn = document.getElementById('chat-btn');
+  btn.disabled = true;
+
+  addMessage('user', input);
+  document.getElementById('chat-input').value = '';
+  addLoadingMessage();
+
+  const context = SOLUTIONS.map(s =>
+    `ID:${s.id} | ${s.category_label} | ${s.name} | ${s.description}`
+  ).join('\n');
+
+  // Системный промпт — задаём роль и формат
+  const systemPrompt = `Ты ИИ-консультант по подбору решений для обучения и развития сотрудников.
+
+Каталог доступных решений:
+${context}
+
+Правила:
+1. Отвечай на русском, дружелюбно и по делу.
+2. НИКОГДА не используй markdown — никаких **, *, #, нумерованных списков со звёздочками.
+3. Пиши простым текстом. Перечисляй решения по названию, не по ID.
+4. В тексте ответа (поле reply) упоминай только название решения, никогда не пиши его ID.
+5. Когда пользователь описывает задачу — подбери 2-5 подходящих решений и объясни почему каждое подходит.
+6. Когда пользователь задаёт уточняющий вопрос — отвечай на него, опираясь на уже предложенные решения.
+7. ВСЕГДА возвращай JSON:
+{"reply":"твой ответ с названиями решений","matches":{"id1":"почему подходит","id2":"почему подходит"}}
+В matches используй ID как ключи, но в reply пиши только человекочитаемые названия.`;
+
+  // Собираем полную историю для контекста
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    ...chatHistory
+  ];
+
+  try {
+    const r = await fetch(MISTRAL_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${MISTRAL_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'mistral-large-latest',
+        response_format: { type: 'json_object' },
+        messages
+      })
+    });
+
+    const json = await r.json();
+    const raw = json?.choices?.[0]?.message?.content || '{}';
+
+    let reply = '', matches = {};
+    try {
+      const obj = JSON.parse(raw);
+      reply = obj.reply || '';
+      matches = obj.matches || {};
+    } catch { reply = raw; }
+
+    removeLoadingMessage();
+    addMessage('assistant', reply);
+
+    // Обновляем карточки только если есть новые matches
+    if (Object.keys(matches).length > 0) {
+      highlightedIds = Object.keys(matches);
+      aiNotes = matches;
+      const meta = document.getElementById('chat-meta');
+      meta.className = 'chat-meta visible';
+      document.getElementById('found-badge').textContent = `${highlightedIds.length} решений подобрано`;
+      render();
+      document.querySelector('.main').scrollIntoView({ behavior: 'smooth' });
+    }
+
+  } catch(e) {
+    removeLoadingMessage();
+    addMessage('assistant', 'Ошибка подключения: ' + e.message);
+  }
+
+  btn.disabled = false;
+}
+
+function resetAI() {
+  highlightedIds = [];
+  aiNotes = {};
+  chatHistory = [];
+  document.getElementById('chat-history').innerHTML = '';
+  document.getElementById('chat-meta').className = 'chat-meta';
+  document.getElementById('chat-input').value = '';
+  render();
+}
+
+document.getElementById('chat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.ctrlKey) askAI();
+});
+
+// ── Детальная карточка ───────────────────────────────────────────
+function showDetail(id) {
+  const s = SOLUTIONS.find(x => x.id === id);
+  if (!s) return;
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-badge"><span class="card-badge badge-${s.category}">${s.category_label}</span></div>
+    <div class="modal-title">${s.name}</div>
+    ${s.description ? `<div class="modal-row"><div class="modal-key">Описание</div><div class="modal-val">${s.description.replace(/\n/g,'<br>')}</div></div>` : ''}
+    <div class="modal-row"><div class="modal-key">Провайдер</div><div class="modal-val">${s.provider}</div></div>
+    ${s.effect ? `<div class="modal-row"><div class="modal-key">Эффект</div><div class="modal-val">${s.effect.replace(/\n/g,'<br>')}</div></div>` : ''}
+    ${s.date ? `<div class="modal-row"><div class="modal-key">Дата</div><div class="modal-val">${s.date}</div></div>` : ''}
+    ${aiNotes[id] ? `<div class="modal-row"><div class="modal-key">Почему подходит</div><div class="modal-val" style="color:var(--accent)">💡 ${aiNotes[id]}</div></div>` : ''}
+  `;
+  document.getElementById('overlay').className = 'overlay visible';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('overlay')) {
+    document.getElementById('overlay').className = 'overlay';
+  }
+}
+
+// ── Переключатель темы ───────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-icon').textContent = isLight ? '🌙' : '☀️';
+  document.getElementById('theme-label').textContent = isLight ? 'Тёмная' : 'Светлая';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
+// Восстановить тему из localStorage
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light');
+  document.getElementById('theme-icon').textContent = '🌙';
+  document.getElementById('theme-label').textContent = 'Тёмная';
+}
+</script>
+</body>
+</html>
